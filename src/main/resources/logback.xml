@@ -11,10 +11,13 @@
         <appender-ref ref="FILE"/>
     </logger>
 
-    <logger name="org.example.bank" level="INFO, ERROR">
+    <logger name="org.example.controller" level="INFO, ERROR">
         <appender-ref ref="FILE"/>
     </logger>
 
+    <logger name="org.example.model" level="INFO, ERROR">
+        <appender-ref ref="FILE"/>
+    </logger>
 
     <root level="debug">
         <appender-ref ref="STDOUT"/>

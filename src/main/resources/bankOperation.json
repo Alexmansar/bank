@@ -1,0 +1,51 @@
+[ {
+  "id" : 1,
+  "sendCardNumber" : "9999-9999-9999-9999",
+  "getCardNumber" : "8888-9999-6666-5555",
+  "sendSum" : 5.0,
+  "currency" : "UAH",
+  "sendDateTime" : "2022-10-17T18:58:02.8992883",
+  "updateTime" : "2022-10-17T18:58:02.8992883",
+  "paymentPurpose" : "dasd",
+  "paymentStatus" : "IN_PROCESSING"
+}, {
+  "id" : 2,
+  "sendCardNumber" : "7412-9658-9666-8965",
+  "getCardNumber" : "9658-9658-9658-9666",
+  "sendSum" : 1.2121212E8,
+  "currency" : "UAH",
+  "sendDateTime" : "2022-10-17T19:09:00.7336364",
+  "updateTime" : "2022-10-17T19:34:09.8304553",
+  "paymentPurpose" : "dsf",
+  "paymentStatus" : "DECLINED"
+}, {
+  "id" : 3,
+  "sendCardNumber" : "7412-9658-9666-8855",
+  "getCardNumber" : "9658-9658-9658-9996",
+  "sendSum" : 1255.0,
+  "currency" : "UAH",
+  "sendDateTime" : "2022-10-17T19:09:00.7336364",
+  "updateTime" : "2022-10-17T19:34:09.8304553",
+  "paymentPurpose" : "dsf",
+  "paymentStatus" : "DECLINED"
+}, {
+  "id" : 4,
+  "sendCardNumber" : "7412-9658-9666-8965",
+  "getCardNumber" : "9658-9658-9658-9666",
+  "sendSum" : 2222.0,
+  "currency" : "CNY",
+  "sendDateTime" : "2022-10-17T19:09:00.7336364",
+  "updateTime" : "2022-10-17T19:58:40.4371585",
+  "paymentPurpose" : "dsf",
+  "paymentStatus" : "DECLINED"
+}, {
+  "id" : 5,
+  "sendCardNumber" : "7412-9658-9666-8965",
+  "getCardNumber" : "9658-9658-9658-9666",
+  "sendSum" : 18.0,
+  "currency" : "UAH",
+  "sendDateTime" : "2022-10-17T19:09:00.7336364",
+  "updateTime" : "2022-10-17T19:34:09.8304553",
+  "paymentPurpose" : "dsf",
+  "paymentStatus" : "DECLINED"
+} ]

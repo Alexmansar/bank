@@ -1,7 +1,9 @@
 package org.example.utils;
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.model.BankOperation;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
@@ -17,6 +19,14 @@ public class Validator {
         return str;
     }
 
+    public static boolean checkId(int id, ArrayList<BankOperation> bankOperations) {
+        for (BankOperation operation : bankOperations) {
+            if (operation.getId() == id) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public static boolean isPositive(float number) {
         return number > ((number + 1) % number);

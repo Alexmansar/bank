@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<BankOperations>
+    <bankOperation>
+        <id>1</id>
+        <sendCardNumber>1234-4567-9874-1235</sendCardNumber>
+        <getCardNumber>2211-4433-6655-8877</getCardNumber>
+        <sendSum>1.0</sendSum>
+        <currency>USD</currency>
+        <sendDateTime>2022-10-17T18:56:34.641556500</sendDateTime>
+        <updateTime>2022-10-17T18:57:35.018484600</updateTime>
+        <paymentPurpose>for present</paymentPurpose>
+        <paymentStatus>IN_PROCESSING</paymentStatus>
+    </bankOperation>
+    <bankOperation>
+        <id>2</id>
+        <sendCardNumber>9658-9654-9632-9654</sendCardNumber>
+        <getCardNumber>4566-9654-9659-9999</getCardNumber>
+        <sendSum>2.0</sendSum>
+        <currency>UAH</currency>
+        <sendDateTime>2022-10-17T19:11:03.601538700</sendDateTime>
+        <updateTime>2022-10-17T19:42:16.634494200</updateTime>
+        <paymentPurpose>sdaaaaa</paymentPurpose>
+        <paymentStatus>PENDING</paymentStatus>
+    </bankOperation>
+    <bankOperation>
+        <id>3</id>
+        <sendCardNumber>9658-9658-9658-9658</sendCardNumber>
+        <getCardNumber>4555-9666-6665-8888</getCardNumber>
+        <sendSum>55.0</sendSum>
+        <currency>UAH</currency>
+        <sendDateTime>2022-10-17T19:11:50.867009800</sendDateTime>
+        <updateTime>2022-10-17T19:11:50.867009800</updateTime>
+        <paymentPurpose>asd</paymentPurpose>
+        <paymentStatus>IN_PROCESSING</paymentStatus>
+    </bankOperation>
+    <bankOperation>
+        <id>4</id>
+        <sendCardNumber>1111-1111-1111-1111</sendCardNumber>
+        <getCardNumber>1111-1111-1111-1112</getCardNumber>
+        <sendSum>952411.0</sendSum>
+        <currency>UAH</currency>
+        <sendDateTime>2022-10-17T19:20:41.486533500</sendDateTime>
+        <updateTime>2022-10-17T19:54:26.762425600</updateTime>
+        <paymentPurpose>asdas</paymentPurpose>
+        <paymentStatus>DECLINED</paymentStatus>
+    </bankOperation>
+</BankOperations>

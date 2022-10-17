@@ -1,4 +1,4 @@
-package org.example.bank;
+package org.example.model;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.utils.Validator;
@@ -25,5 +25,10 @@ public enum Currency {
             return validateCurrency();
         }
         return currency;
+    }
+
+    public static Currency chooseCurrency() {
+        Currency.printCurrencies();
+        return Currency.validateCurrency();
     }
 }
