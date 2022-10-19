@@ -15,12 +15,11 @@ import java.util.List;
 
 @Slf4j
 public class CsvParser implements Parser {
-    public static final String CSV_FILE = "src/main/resources/bankOperation.csv";
 
     @Override
-    public void toFile(List<BankOperation> operation) {
-        FileUtils.clearFile(CsvParser.CSV_FILE);
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(CSV_FILE, true))) {
+    public void toFile(List<BankOperation> operation, File file) {
+        FileUtils.clearFile(file);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
             for (BankOperation bankOperations : operation) {
                 writer.write(scvToString(bankOperations) + "\n");
             }
@@ -30,10 +29,10 @@ public class CsvParser implements Parser {
     }
 
     @Override
-    public List<BankOperation> toObjectList() {
+    public List<BankOperation> toObjectList(File file) {
         List<BankOperation> bankOperations = new ArrayList<>();
         String stringOrder;
-        try (BufferedReader reader = new BufferedReader(new FileReader(CSV_FILE))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             while (reader.ready()) {
                 stringOrder = reader.readLine();
                 BankOperation operation = createOperationFromString(stringOrder);

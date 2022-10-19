@@ -96,7 +96,7 @@
 
 
     <build>
-        <finalName>restServer</finalName>
+        <finalName>bankOperation</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -17,24 +17,22 @@ import java.util.List;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class YamlParser implements Parser {
-    static final String YAML_FILE = "src/main/resources/bankOperation.yaml";
-    final File FILE = new File(YAML_FILE);
     ObjectMapper MAPPER = new ObjectMapper(new YAMLFactory());
 
     @Override
-    public void toFile(List<BankOperation> operations) throws IOException {
+    public void toFile(List<BankOperation> operations, File file) throws IOException {
         MAPPER = YAMLMapper.builder().addModule(new JavaTimeModule()).build();
         MAPPER.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         MAPPER.enable(SerializationFeature.INDENT_OUTPUT);
-        MAPPER.writeValue(FILE, operations);
+        MAPPER.writeValue(file, operations);
     }
 
     @Override
-    public List<BankOperation> toObjectList() throws IOException {
+    public List<BankOperation> toObjectList(File file) throws IOException {
         MAPPER = YAMLMapper.builder().addModule(new JavaTimeModule()).build();
         MAPPER.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         MAPPER.enable(SerializationFeature.INDENT_OUTPUT);
-        return MAPPER.readValue(FILE, new TypeReference<>() {
+        return MAPPER.readValue(file, new TypeReference<>() {
         });
     }
 }

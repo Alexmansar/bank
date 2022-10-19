@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
 import java.util.Locale;
+
 @Slf4j
 public enum Action {
     CREATE, UPDATE, REMOVE;
@@ -27,6 +28,6 @@ public enum Action {
 
     public static void chooseAction() {
         System.out.println("Please, enter action:");
-        Action.printAction();
+        printAction();
     }
 }

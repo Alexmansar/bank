@@ -9,24 +9,6 @@
   paymentPurpose: " for present"
   paymentStatus: "IN_PROCESSING"
 - id: 2
-  sendCardNumber: "1111-2222-3333-4444"
-  getCardNumber: "1122-3344-5566-7788"
-  sendSum: 12000.0
-  currency: "EUR"
-  sendDateTime: "2022-10-14T15:58:00.1465178"
-  updateTime: "2022-10-14T15:58:00.1465178"
-  paymentPurpose: " for auto"
-  paymentStatus: "IN_PROCESSING"
-- id: 3
-  sendCardNumber: "9652-9654-9632-9854"
-  getCardNumber: "9654-9856-6325-0021"
-  sendSum: 1.0
-  currency: "UAH"
-  sendDateTime: "2022-10-14T22:00:35.1986961"
-  updateTime: "2022-10-15T11:15:26.5654462"
-  paymentPurpose: "sadasdas"
-  paymentStatus: "IN_PROCESSING"
-- id: 4
   sendCardNumber: "5236-5236-7412-8569"
   getCardNumber: "2589-9654-8745-9632"
   sendSum: 2.0
@@ -35,12 +17,21 @@
   updateTime: "2022-10-17T19:12:59.6541243"
   paymentPurpose: "asdsadasdasdsa"
   paymentStatus: "IN_PROCESSING"
-- id: 5
+- id: 3
   sendCardNumber: "9632-9856-9658-9658"
   getCardNumber: "9632-9632-9632-8565"
-  sendSum: 1111.0
+  sendSum: 1.0
   currency: "UAH"
   sendDateTime: "2022-10-15T11:14:54.7756477"
-  updateTime: "2022-10-17T14:32:40.0756244"
+  updateTime: "2022-10-17T20:23:26.0982088"
   paymentPurpose: "52aa2a"
+  paymentStatus: "IN_PROCESSING"
+- id: 4
+  sendCardNumber: "9999-9999-9999-9999"
+  getCardNumber: "8569-9658-9658-7854"
+  sendSum: 125.0
+  currency: "UAH"
+  sendDateTime: "2022-10-19T11:17:29.719045"
+  updateTime: "2022-10-19T11:17:29.719045"
+  paymentPurpose: "sad"
   paymentStatus: "IN_PROCESSING"

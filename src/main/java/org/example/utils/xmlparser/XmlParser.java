@@ -19,6 +19,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -39,14 +40,13 @@ public class XmlParser implements Parser {
     static final String TAG_UPDATE_TIME = "updateTime";
     static final String TAG_PAYMENT_PURPOSE = "paymentPurpose";
     static final String TAG_PAYMENT_STATUS = "paymentStatus";
-    static final String XML_FILE = "src/main/resources/bankOperation.xml";
 
     @Override
-    public void toFile(List<BankOperation> bankOperations) {
-        FileUtils.clearFile(XML_FILE);
+    public void toFile(List<BankOperation> bankOperations, File file) {
+        FileUtils.clearFile(file);
         try {
             XMLOutputFactory output = XMLOutputFactory.newInstance();
-            XMLStreamWriter writer = output.createXMLStreamWriter(new FileWriter(XML_FILE));
+            XMLStreamWriter writer = output.createXMLStreamWriter(new FileWriter(file));
             writer.writeStartDocument("1.0");
             writer.writeStartElement("BankOperations");
             for (BankOperation bankOperation : bankOperations) {
@@ -98,11 +98,11 @@ public class XmlParser implements Parser {
     }
 
     @Override
-    public List<BankOperation> toObjectList() {
+    public List<BankOperation> toObjectList(File file) {
         List<BankOperation> bankOperations = new ArrayList<>();
         try {
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            Document document = documentBuilder.parse(XML_FILE);
+            Document document = documentBuilder.parse(file);
             Node root = document.getDocumentElement();
             NodeList transactions = root.getChildNodes();
             for (int i = 0; i < transactions.getLength(); i++) {

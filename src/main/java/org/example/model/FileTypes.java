@@ -1,28 +1,46 @@
 package org.example.model;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.utils.Validator;
+import org.example.exception.NotFileFormatException;
 
 import java.util.Arrays;
-import java.util.Locale;
+
 @Slf4j
 public enum FileTypes {
-    XML, JSON, YAML, CSV;
+    JSON, YAML, XML, CSV;
 
-    public static void printFileTypes() {
-        Arrays.stream(FileTypes.values()).forEach(System.out::println);
-    }
-
-
-    public static FileTypes validateFileTypes() {
+    public static FileTypes chooseFilePath(String filePath) {
         FileTypes fileTypes;
-        try {
-            fileTypes = FileTypes.valueOf(Validator.validateInputText().toUpperCase(Locale.ROOT));
-        } catch (IllegalArgumentException exception) {
-            System.out.println("Enter from the list : ");
-            printFileTypes();
-            log.error(exception.getMessage());
-            return validateFileTypes();
+        String message;
+        int count = 0;
+        for (int i = filePath.length() - 1; i > 0; i--) {
+            if (filePath.charAt(i) == '.') {
+                count++;
+            }
+        }
+        if (count == 0) {
+            message = "Not Valid Format. You don't use '.' ";
+            log.error(message);
+            throw new NotFileFormatException(message);
+        }
+        StringBuilder format = new StringBuilder();
+        for (int i = filePath.length() - 1; i > 0; i--) {
+            if (filePath.charAt(i) != '.') {
+                format.append(filePath.charAt(i));
+            } else {
+                break;
+            }
+        }
+        switch (format.reverse().toString()) {
+            case "json" -> fileTypes = JSON;
+            case "xml" -> fileTypes = XML;
+            case "csv" -> fileTypes = CSV;
+            case "yaml" -> fileTypes = YAML;
+            default -> {
+                message = "Not Valid Format. Please, use ones: " + Arrays.toString(values());
+                log.error(message);
+                throw new NotFileFormatException(message);
+            }
         }
         return fileTypes;
     }
