@@ -2,20 +2,11 @@
 - id: 1
   sendCardNumber: "1234-4567-9874-1235"
   getCardNumber: "2211-4433-6655-8877"
-  sendSum: 12321.0
+  sendSum: 1.0
   currency: "CNY"
   sendDateTime: "2022-10-14T15:58:00.1465178"
-  updateTime: "2022-10-17T14:33:32.4530787"
-  paymentPurpose: " for present"
-  paymentStatus: "IN_PROCESSING"
-- id: 2
-  sendCardNumber: "5236-5236-7412-8569"
-  getCardNumber: "2589-9654-8745-9632"
-  sendSum: 2.0
-  currency: "UAH"
-  sendDateTime: "2022-10-14T22:01:43.8753389"
-  updateTime: "2022-10-17T19:12:59.6541243"
-  paymentPurpose: "asdsadasdasdsa"
+  updateTime: "2022-10-23T20:16:21.3587762"
+  paymentPurpose: "sss"
   paymentStatus: "IN_PROCESSING"
 - id: 3
   sendCardNumber: "9632-9856-9658-9658"
@@ -29,9 +20,18 @@
 - id: 4
   sendCardNumber: "9999-9999-9999-9999"
   getCardNumber: "8569-9658-9658-7854"
-  sendSum: 125.0
+  sendSum: 1000.0
   currency: "UAH"
   sendDateTime: "2022-10-19T11:17:29.719045"
-  updateTime: "2022-10-19T11:17:29.719045"
+  updateTime: "2022-10-23T20:58:35.7354369"
   paymentPurpose: "sad"
+  paymentStatus: "IN_PROCESSING"
+- id: 5
+  sendCardNumber: "9632-9666-6666-9999"
+  getCardNumber: "5455-6669-9666-6666"
+  sendSum: 1.0
+  currency: "UAH"
+  sendDateTime: "2022-10-23T20:15:55.9744557"
+  updateTime: "2022-10-23T20:57:48.4004573"
+  paymentPurpose: "aaaa"
   paymentStatus: "IN_PROCESSING"

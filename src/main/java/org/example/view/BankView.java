@@ -6,24 +6,29 @@ import org.example.utils.RegexValidator;
 import org.example.utils.Validator;
 
 import java.io.File;
+
 @Slf4j
 public class BankView {
 
-
     public String enterFilePath() {
-        StringBuilder stringBuilder = new StringBuilder();
+        String filePath;
         System.out.println("Enter disk name");
-        stringBuilder.append(ConsoleUtils.getString()).append(":");
-        System.out.println("enter folder");
-        do {
-            stringBuilder.append(File.separator).append(ConsoleUtils.getString());
-            System.out.println("Do you want enter new folder? Enter Yes or no ");
-        } while (Validator.Action.validateAction().equals(Validator.Action.YES));
-        System.out.println("enter file name with it type");
-        stringBuilder.append(File.separator).append(ConsoleUtils.getString());
-        return stringBuilder.toString();
+        filePath = ConsoleUtils.getString();
+        return filePath.replace('/', File.separatorChar).replace('\\', File.separatorChar);
     }
 
+    public String chooseFilePath(String filePath) {
+        Validator.checkDotsInPath(filePath);
+        StringBuilder format = new StringBuilder();
+        for (int i = filePath.length() - 1; i > 0; i--) {
+            if (filePath.charAt(i) != '.') {
+                format.append(filePath.charAt(i));
+            } else {
+                break;
+            }
+        }
+        return format.reverse().toString();
+    }
 
     public String getPaymentPurpose() {
         return ConsoleUtils.getString();
@@ -46,7 +51,6 @@ public class BankView {
             System.out.println(transferSum + " can't by zero. Try again");
             log.info("number {} - is zero", transferSum);
             return getTransferSum();
-
         }
         if (!Validator.isPositive(transferSum)) {
             System.out.println(transferSum + " is not positive. Try again");
@@ -66,5 +70,4 @@ public class BankView {
                 5 - purpose
                 6 - status""");
     }
-
 }

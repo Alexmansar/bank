@@ -17,13 +17,4 @@ public class FileUtils {
             throw new RuntimeException(e);
         }
     }
-
-    public static void clearFile(String fileName) {
-        try {
-            new FileOutputStream(fileName).close();
-        } catch (IOException e) {
-            log.info("ERROR: " + e.getMessage());
-            throw new RuntimeException(e);
-        }
-    }
 }

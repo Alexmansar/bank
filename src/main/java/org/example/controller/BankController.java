@@ -2,17 +2,19 @@ package org.example.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.BankMain;
+import org.example.filefactory.CsvFactory;
+import org.example.filefactory.JsonFactory;
+import org.example.filefactory.XmlFactory;
+import org.example.filefactory.YamlFactory;
 import org.example.exception.InvalidStatusException;
-import org.example.exception.NotFileFormatException;
-import org.example.model.BankOperation;
-import org.example.model.Currency;
-import org.example.model.FileTypes;
-import org.example.model.PaymentStatus;
-import org.example.utils.*;
-import org.example.utils.csvparser.CsvParser;
-import org.example.utils.jsonparser.JsonParser;
-import org.example.utils.xmlparser.XmlParser;
-import org.example.utils.yamlparser.YamlParser;
+import org.example.model.*;
+import org.example.parser.Parser;
+import org.example.parser.csvparser.CsvParser;
+import org.example.parser.jsonparser.JsonParser;
+import org.example.parser.xmlparser.XmlParser;
+import org.example.parser.yamlparser.YamlParser;
+import org.example.utils.ConsoleUtils;
+import org.example.utils.Validator;
 import org.example.view.BankView;
 
 import java.io.File;
@@ -20,17 +22,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Arrays;
 
 @Slf4j
 public class BankController {
     BankView bankView = new BankView();
-    public static final String LOG_FILE = "logger.log";
-    Parser CSV_PARSER = new CsvParser();
-    Parser JSON_PARSER = new JsonParser();
-    Parser XML_PARSER = new XmlParser();
-    Parser YAML_PARSER = new YamlParser();
-    ArrayList<BankOperation> BANK_OPERATIONS;
+    ArrayList<BankOperation> bankOperations;
+    FileType fileType;
+    Parser parser;
+    File file;
 
     /*  {
           bankOperations = new ArrayList<>();
@@ -43,42 +43,23 @@ public class BankController {
       }
   */
     public void run() throws IOException {
-        FileUtils.clearFile(LOG_FILE);
         String appName = BankMain.class.getSimpleName();
         log.info("APP '{}' start success", appName.toUpperCase());
         do {
-            String filePath = bankView.enterFilePath();
-            FileTypes fileTypes = chooseFileType(filePath);
-            File file = chooseFile(filePath);
-            try {
-                switch (fileTypes) {
-                    case JSON -> {
-                        BANK_OPERATIONS = (ArrayList<BankOperation>) JSON_PARSER.toObjectList(file);
-                        makeActionWithFile(fileTypes, file);
-                    }
-                    case YAML -> {
-                        BANK_OPERATIONS = (ArrayList<BankOperation>) YAML_PARSER.toObjectList(file);
-                        makeActionWithFile(fileTypes, file);
-                    }
-                    case XML -> {
-                        BANK_OPERATIONS = (ArrayList<BankOperation>) XML_PARSER.toObjectList(file);
-                        makeActionWithFile(fileTypes, file);
-                    }
-                    case CSV -> {
-                        BANK_OPERATIONS = (ArrayList<BankOperation>) CSV_PARSER.toObjectList(file);
-                        makeActionWithFile(fileTypes, file);
-                    }
-                }
-            } catch (FileNotFoundException e) {
-                log.info(e.getMessage());
-                System.out.println(e.getMessage());
-            }
+            String path = bankView.enterFilePath();
+            String fileFormat = bankView.chooseFilePath(path);
+            Validator.checkFileType(fileFormat);
+            fileType = createFileType(fileFormat);
+            file = chooseFile(path);
+            parser = createParser(fileFormat);
+            bankOperations = fileToObjectList();
+            makeActionWithFile();
             System.out.println("Do you want to continue work with app? Enter Yes or no ");
         } while (Validator.Action.validateAction().equals(Validator.Action.YES));
         log.info("APP '{}' finished success", appName.toUpperCase());
     }
 
-    private void createTransaction(FileTypes types, File file) throws IOException {
+    private void createTransaction() throws IOException {
         System.out.println("Please, enter your card number");
         String sendCardNumber = bankView.createCardNumber();
         System.out.println("now, please, enter card number to transfer");
@@ -89,39 +70,89 @@ public class BankController {
         Currency currency = Currency.chooseCurrency();
         System.out.println("keep a description of the payment");
         String paymentPurpose = bankView.getPaymentPurpose();
-        int newId = BANK_OPERATIONS.size();
+        int newId = bankOperations.get(bankOperations.size() - 1).getId();
         BankOperation operation = new BankOperation(newId, sendCardNumber, getCardNumber, transferSum, currency, paymentPurpose);
-        BANK_OPERATIONS.add(operation);
-        writeToFile(types, file);
+        bankOperations.add(operation);
+        writeToFile();
         log.info("new operation success create {}", operation);
     }
 
-    private void updateTransaction(FileTypes types, File file) throws IOException {
+    private void updateTransaction() throws IOException {
         BankOperation operation;
         int id = chooseOrderId();
-        if (!Validator.checkId(id, BANK_OPERATIONS)) {
-            createTransaction(types, file);
+        if (!Validator.checkId(id, bankOperations)) {
+            System.out.println("Not found. Do you want create a new transaction?");
+            Validator.Action wantCreate = Validator.Action.validateAction();
+            if (wantCreate.equals(Validator.Action.YES)) {
+                createTransaction();
+            }
             return;
         }
         operation = findOperationById(id);
         changeOperation(operation);
-        writeToFile(types, file);
+        writeToFile();
         log.info("operation update {}", operation);
     }
 
-    private void deleteTransaction(FileTypes types, File file) throws IOException {
+    private void deleteTransaction() throws IOException {
         BankOperation operation;
         int id;
         do {
             id = chooseOrderId();
         }
-        while (!Validator.checkId(id, BANK_OPERATIONS));
+        while (!Validator.checkId(id, bankOperations));
         operation = findOperationById(id);
-        BANK_OPERATIONS.remove(id - 1);
-        AtomicInteger finalI = new AtomicInteger();
-        BANK_OPERATIONS.forEach(a -> a.setId(finalI.incrementAndGet()));
-        writeToFile(types, file);
+        bankOperations.remove(operation);
+        writeToFile();
         log.info("operation remove {}", operation);
+    }
+
+    FileType createFileType(String fileFormat) throws FileNotFoundException {
+        String message = "Not correct File";
+        switch (fileFormat) {
+            case "json" -> new JsonFactory();
+            case "yaml" -> new YamlFactory();
+            case "xml" -> new XmlFactory();
+            case "csv" -> new CsvFactory();
+            default -> {
+                log.error(message);
+                throw new FileNotFoundException(message + ", enter correct type:" + Arrays.toString(FileType.values()));
+            }
+        }
+        return null;
+    }
+
+    Parser createParser(String fileFormat) {
+        switch (fileFormat) {
+            case "json" -> parser = new JsonParser();
+            case "yaml" -> parser = new YamlParser();
+            case "xml" -> parser = new XmlParser();
+            case "csv" -> parser = new CsvParser();
+        }
+        return parser;
+    }
+
+    private ArrayList<BankOperation> fileToObjectList() throws IOException {
+        return (ArrayList<BankOperation>) parser.toObjectList(file);
+    }
+
+
+    private void makeActionWithFile() {
+        Action.chooseAction();
+        Action action = Action.validateAction();
+        try {
+            switch (action) {
+                case CREATE -> createTransaction();
+                case UPDATE -> updateTransaction();
+                case REMOVE -> deleteTransaction();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void writeToFile() throws IOException {
+        parser.toFile(bankOperations, file);
     }
 
     public void changeOperation(BankOperation operation) {
@@ -148,50 +179,16 @@ public class BankController {
         log.info("operation {} was success update.", operation);
     }
 
-    private void makeActionWithFile(FileTypes fileTypes, File file) {
-        Action.chooseAction();
-        Action action = Action.validateAction();
-        try {
-            switch (action) {
-                case CREATE -> createTransaction(fileTypes, file);
-                case UPDATE -> updateTransaction(fileTypes, file);
-                case REMOVE -> deleteTransaction(fileTypes, file);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    public File chooseFile(String string) throws FileNotFoundException {
+        file = new File(string);
+        if (!file.exists()) {
+            throw new FileNotFoundException();
         }
-    }
-
-
-    public FileTypes chooseFileType(String filePath) {
-        FileTypes fileType;
-        try {
-            fileType = FileTypes.chooseFilePath(filePath);
-        } catch (NotFileFormatException e) {
-            filePath = bankView.enterFilePath();
-            log.error(e.getMessage());
-            System.out.println(e.getMessage());
-            return chooseFileType(filePath);
-        }
-        return fileType;
-    }
-
-    public File chooseFile(String string) {
-        return new File(string);
-    }
-
-
-    private void writeToFile(FileTypes types, File file) throws IOException {
-        switch (types) {
-            case JSON -> JSON_PARSER.toFile(BANK_OPERATIONS, file);
-            case YAML -> YAML_PARSER.toFile(BANK_OPERATIONS, file);
-            case XML -> XML_PARSER.toFile(BANK_OPERATIONS, file);
-            case CSV -> CSV_PARSER.toFile(BANK_OPERATIONS, file);
-        }
+        return file;
     }
 
     public void printTransaction() {
-        BANK_OPERATIONS.forEach(System.out::println);
+        bankOperations.forEach(System.out::println);
     }
 
     public int chooseOrderId() {
@@ -206,7 +203,7 @@ public class BankController {
     }
 
     public BankOperation findOperationById(int id) {
-        for (BankOperation operation : BANK_OPERATIONS) {
+        for (BankOperation operation : bankOperations) {
             if (operation.getId() == id) {
                 return operation;
             }

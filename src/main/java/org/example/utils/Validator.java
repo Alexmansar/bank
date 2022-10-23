@@ -1,7 +1,9 @@
 package org.example.utils;
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.exception.NotFileFormatException;
 import org.example.model.BankOperation;
+import org.example.model.FileType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,6 +52,29 @@ public class Validator {
                 return validateAction();
             }
             return action;
+        }
+    }
+
+
+    public static void checkDotsInPath(String filePath) {
+        String message;
+        int count = 0;
+        for (int i = filePath.length() - 1; i > 0; i--) {
+            if (filePath.charAt(i) == '.') {
+                count++;
+            }
+        }
+        if (count == 0) {
+            message = "Not Valid Format. You don't use '.' ";
+            log.error(message);
+            throw new NotFileFormatException(message);
+        }
+    }
+
+    public static void checkFileType(String path) {
+        if (!Arrays.toString(FileType.values()).contains(path.toUpperCase())){
+            throw new NotFileFormatException(path + " Not valid format. Use only :" + Arrays.toString(FileType.values()));
+
         }
     }
 }

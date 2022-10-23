@@ -1,4 +1,4 @@
-package org.example.utils.yamlparser;
+package org.example.parser.yamlparser;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,7 +9,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.example.model.BankOperation;
-import org.example.utils.Parser;
+import org.example.parser.Parser;
 
 import java.io.File;
 import java.io.IOException;

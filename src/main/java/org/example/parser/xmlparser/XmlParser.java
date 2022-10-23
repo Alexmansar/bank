@@ -1,4 +1,4 @@
-package org.example.utils.xmlparser;
+package org.example.parser.xmlparser;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -7,7 +7,7 @@ import org.example.model.BankOperation;
 import org.example.model.Currency;
 import org.example.model.PaymentStatus;
 import org.example.utils.FileUtils;
-import org.example.utils.Parser;
+import org.example.parser.Parser;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;

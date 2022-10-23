@@ -1,6 +1,7 @@
-package org.example.utils;
+package org.example.model;
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.utils.Validator;
 
 import java.util.Arrays;
 import java.util.Locale;

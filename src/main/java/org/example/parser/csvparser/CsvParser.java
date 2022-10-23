@@ -1,4 +1,4 @@
-package org.example.utils.csvparser;
+package org.example.parser.csvparser;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.exception.NotValidSizeException;
@@ -6,7 +6,7 @@ import org.example.model.BankOperation;
 import org.example.model.Currency;
 import org.example.model.PaymentStatus;
 import org.example.utils.FileUtils;
-import org.example.utils.Parser;
+import org.example.parser.Parser;
 
 import java.io.*;
 import java.time.LocalDateTime;
