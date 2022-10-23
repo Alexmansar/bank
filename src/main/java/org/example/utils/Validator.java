@@ -56,7 +56,7 @@ public class Validator {
     }
 
 
-    public static void checkDotsInPath(String filePath) {
+    public static void checkDotsInPath(String filePath) throws NotFileFormatException{
         String message;
         int count = 0;
         for (int i = filePath.length() - 1; i > 0; i--) {
@@ -71,10 +71,9 @@ public class Validator {
         }
     }
 
-    public static void checkFileType(String path) {
+    public static void checkFileType(String path) throws NotFileFormatException {
         if (!Arrays.toString(FileType.values()).contains(path.toUpperCase())){
             throw new NotFileFormatException(path + " Not valid format. Use only :" + Arrays.toString(FileType.values()));
-
         }
     }
 }

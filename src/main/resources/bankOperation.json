@@ -42,10 +42,10 @@
   "id" : 11,
   "sendCardNumber" : "9999-9999-9999-9999",
   "getCardNumber" : "5555-6666-8888-5555",
-  "sendSum" : 1000.0,
+  "sendSum" : 1.0,
   "currency" : "UAH",
   "sendDateTime" : "2022-10-23T20:36:23.6256996",
-  "updateTime" : "2022-10-23T20:57:29.1780543",
+  "updateTime" : "2022-10-23T21:05:56.3776847",
   "paymentPurpose" : "ads",
   "paymentStatus" : "IN_PROCESSING"
 }, {

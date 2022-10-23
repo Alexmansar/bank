@@ -1,6 +1,7 @@
 package org.example.view;
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.exception.NotFileFormatException;
 import org.example.utils.ConsoleUtils;
 import org.example.utils.RegexValidator;
 import org.example.utils.Validator;
@@ -17,7 +18,7 @@ public class BankView {
         return filePath.replace('/', File.separatorChar).replace('\\', File.separatorChar);
     }
 
-    public String chooseFilePath(String filePath) {
+    public String chooseFilePath(String filePath) throws NotFileFormatException {
         Validator.checkDotsInPath(filePath);
         StringBuilder format = new StringBuilder();
         for (int i = filePath.length() - 1; i > 0; i--) {

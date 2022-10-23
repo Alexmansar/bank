@@ -49,7 +49,6 @@ public class BankController {
             String path = bankView.enterFilePath();
             String fileFormat = bankView.chooseFilePath(path);
             Validator.checkFileType(fileFormat);
-            fileType = createFileType(fileFormat);
             file = chooseFile(path);
             parser = createParser(fileFormat);
             bankOperations = fileToObjectList();
@@ -105,21 +104,6 @@ public class BankController {
         bankOperations.remove(operation);
         writeToFile();
         log.info("operation remove {}", operation);
-    }
-
-    FileType createFileType(String fileFormat) throws FileNotFoundException {
-        String message = "Not correct File";
-        switch (fileFormat) {
-            case "json" -> new JsonFactory();
-            case "yaml" -> new YamlFactory();
-            case "xml" -> new XmlFactory();
-            case "csv" -> new CsvFactory();
-            default -> {
-                log.error(message);
-                throw new FileNotFoundException(message + ", enter correct type:" + Arrays.toString(FileType.values()));
-            }
-        }
-        return null;
     }
 
     Parser createParser(String fileFormat) {
