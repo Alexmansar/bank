@@ -2,10 +2,6 @@ package org.example.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.BankMain;
-import org.example.filefactory.CsvFactory;
-import org.example.filefactory.JsonFactory;
-import org.example.filefactory.XmlFactory;
-import org.example.filefactory.YamlFactory;
 import org.example.exception.InvalidStatusException;
 import org.example.model.*;
 import org.example.parser.Parser;
@@ -22,13 +18,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 @Slf4j
 public class BankController {
     BankView bankView = new BankView();
     ArrayList<BankOperation> bankOperations;
-    FileType fileType;
     Parser parser;
     File file;
 
