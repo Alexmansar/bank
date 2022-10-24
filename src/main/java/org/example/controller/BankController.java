@@ -3,12 +3,11 @@ package org.example.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.example.BankMain;
 import org.example.exception.InvalidStatusException;
-import org.example.model.*;
+import org.example.model.Action;
+import org.example.model.BankOperation;
+import org.example.model.Currency;
+import org.example.model.PaymentStatus;
 import org.example.parser.Parser;
-import org.example.parser.csvparser.CsvParser;
-import org.example.parser.jsonparser.JsonParser;
-import org.example.parser.xmlparser.XmlParser;
-import org.example.parser.yamlparser.YamlParser;
 import org.example.utils.ConsoleUtils;
 import org.example.utils.Validator;
 import org.example.view.BankView;
@@ -18,6 +17,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 public class BankController {
@@ -25,6 +26,14 @@ public class BankController {
     ArrayList<BankOperation> bankOperations;
     Parser parser;
     File file;
+    Map<String, Parser> stringParserMap=new HashMap<>();
+
+    /*{
+        stringParserMap.put("json",new JsonParser());
+        stringParserMap.put("yaml",new YamlParser());
+        stringParserMap.put("xml",new XmlParser());
+        stringParserMap.put("csv",new CsvParser());
+    }*/
 
     /*  {
           bankOperations = new ArrayList<>();
@@ -101,14 +110,7 @@ public class BankController {
     }
 
     Parser createParser(String fileFormat) {
-        switch (fileFormat) {
-            case "json" -> parser = new JsonParser();
-            case "yaml" -> parser = new YamlParser();
-            case "xml" -> parser = new XmlParser();
-            case "csv" -> parser = new CsvParser();
-        }
-        log.info("Parser {} was create ", parser.getClass().toString());
-        return parser;
+        return stringParserMap.get(fileFormat);
     }
 
     private ArrayList<BankOperation> fileToObjectList() throws IOException {
@@ -125,7 +127,7 @@ public class BankController {
                 case UPDATE -> updateTransaction();
                 case REMOVE -> deleteTransaction();
             }
-            log.info("action {} was selected success",action);
+            log.info("action {} was selected success", action);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
