@@ -39,16 +39,6 @@
   "paymentPurpose" : "ddd",
   "paymentStatus" : "IN_PROCESSING"
 }, {
-  "id" : 11,
-  "sendCardNumber" : "9999-9999-9999-9999",
-  "getCardNumber" : "5555-6666-8888-5555",
-  "sendSum" : 100.0,
-  "currency" : "UAH",
-  "sendDateTime" : "2022-10-23T20:36:23.6256996",
-  "updateTime" : "2022-10-24T19:42:47.3921955",
-  "paymentPurpose" : "ads",
-  "paymentStatus" : "IN_PROCESSING"
-}, {
   "id" : 12,
   "sendCardNumber" : "9999-6666-9999-6666",
   "getCardNumber" : "9999-6666-5555-9999",

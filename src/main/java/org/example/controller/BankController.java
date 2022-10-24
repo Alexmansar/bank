@@ -8,6 +8,10 @@ import org.example.model.BankOperation;
 import org.example.model.Currency;
 import org.example.model.PaymentStatus;
 import org.example.parser.Parser;
+import org.example.parser.csvparser.CsvParser;
+import org.example.parser.jsonparser.JsonParser;
+import org.example.parser.xmlparser.XmlParser;
+import org.example.parser.yamlparser.YamlParser;
 import org.example.utils.ConsoleUtils;
 import org.example.utils.Validator;
 import org.example.view.BankView;
@@ -28,12 +32,12 @@ public class BankController {
     File file;
     Map<String, Parser> stringParserMap=new HashMap<>();
 
-    /*{
+    {
         stringParserMap.put("json",new JsonParser());
         stringParserMap.put("yaml",new YamlParser());
         stringParserMap.put("xml",new XmlParser());
         stringParserMap.put("csv",new CsvParser());
-    }*/
+    }
 
     /*  {
           bankOperations = new ArrayList<>();
