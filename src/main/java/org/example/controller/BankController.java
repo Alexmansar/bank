@@ -107,6 +107,7 @@ public class BankController {
             case "xml" -> parser = new XmlParser();
             case "csv" -> parser = new CsvParser();
         }
+        log.info("Parser {} was create ", parser.getClass().toString());
         return parser;
     }
 
@@ -124,6 +125,7 @@ public class BankController {
                 case UPDATE -> updateTransaction();
                 case REMOVE -> deleteTransaction();
             }
+            log.info("action {} was selected success",action);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

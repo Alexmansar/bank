@@ -1,9 +1,11 @@
 package org.example.utils;
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.exception.InvalidStatusException;
 import org.example.exception.NotFileFormatException;
 import org.example.model.BankOperation;
 import org.example.model.FileType;
+import org.example.model.PaymentStatus;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -75,5 +77,31 @@ public class Validator {
         if (!Arrays.toString(FileType.values()).contains(path.toUpperCase())){
             throw new NotFileFormatException(path + " Not valid format. Use only :" + Arrays.toString(FileType.values()));
         }
+    }
+
+    public static void checkNewStatus(PaymentStatus oldStatus, PaymentStatus newStatus) {
+        String message = "Invalid status. The new status cannot be the previous status or the same." +
+                "old status: " + oldStatus.toString().toUpperCase() + " new status: " +
+                newStatus.toString().toUpperCase();
+        if (oldStatus == PaymentStatus.DECLINED && newStatus == oldStatus) {
+            return;
+        }
+        if (oldStatus.getPriority() >= newStatus.getPriority()) {
+            log.info(message);
+            throw new InvalidStatusException(message);
+        }
+    }
+
+    public static PaymentStatus validateStatus() {
+        PaymentStatus paymentStatus;
+        try {
+            paymentStatus = PaymentStatus.valueOf(Validator.validateInputText().toUpperCase(Locale.ROOT));
+        } catch (IllegalArgumentException exception) {
+            System.out.println("Enter from the list : ");
+            PaymentStatus.printPaymentStatuses();
+            log.error(exception.getMessage());
+            return validateStatus();
+        }
+        return paymentStatus;
     }
 }
