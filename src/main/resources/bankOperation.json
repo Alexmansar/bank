@@ -1,0 +1,51 @@
+[ {
+  "id" : 1,
+  "sendCardNumber" : "9999-9999-9999-9999",
+  "getCardNumber" : "8888-9999-6666-5555",
+  "sendSum" : 500.0,
+  "currency" : "UAH",
+  "sendDateTime" : "2022-10-17T18:58:02.8992883",
+  "updateTime" : "2022-10-24T19:43:08.2841406",
+  "paymentPurpose" : "111",
+  "paymentStatus" : "IN_PROCESSING"
+}, {
+  "id" : 7,
+  "sendCardNumber" : "9999-9999-9999-8888",
+  "getCardNumber" : "6596-9658-6666-9999",
+  "sendSum" : 2.0,
+  "currency" : "UAH",
+  "sendDateTime" : "2022-10-21T14:32:30.9742266",
+  "updateTime" : "2022-10-21T14:32:30.9742266",
+  "paymentPurpose" : "a",
+  "paymentStatus" : "IN_PROCESSING"
+}, {
+  "id" : 9,
+  "sendCardNumber" : "9999-8888-9999-9999",
+  "getCardNumber" : "8569-9658-9658-9999",
+  "sendSum" : 1.0,
+  "currency" : "UAH",
+  "sendDateTime" : "2022-10-23T17:52:37.1717438",
+  "updateTime" : "2022-10-23T20:29:21.6321061",
+  "paymentPurpose" : "a",
+  "paymentStatus" : "IN_PROCESSING"
+}, {
+  "id" : 10,
+  "sendCardNumber" : "9999-9999-8888-9999",
+  "getCardNumber" : "8888-9999-6666-6666",
+  "sendSum" : 2.0,
+  "currency" : "UAH",
+  "sendDateTime" : "2022-10-23T20:05:02.0654004",
+  "updateTime" : "2022-10-23T20:05:02.0654004",
+  "paymentPurpose" : "ddd",
+  "paymentStatus" : "IN_PROCESSING"
+}, {
+  "id" : 12,
+  "sendCardNumber" : "9999-6666-9999-6666",
+  "getCardNumber" : "9999-6666-5555-9999",
+  "sendSum" : 10.0,
+  "currency" : "UAH",
+  "sendDateTime" : "2022-10-23T20:40:44.7421678",
+  "updateTime" : "2022-10-23T20:51:25.4824351",
+  "paymentPurpose" : "s",
+  "paymentStatus" : "IN_PROCESSING"
+} ]
